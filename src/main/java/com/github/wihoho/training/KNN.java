@@ -6,7 +6,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-
+/**
+ * 就是在训练集中数据和标签已知的情况下，输入测试数据，将测试数据的特征与训练集中对应的特征进行相互比较，
+ * 找到训练集中与之最为相似的前K个数据，则该测试数据对应的类别就是K个数据中出现次数最多的那个分类
+ * @author Hunteron-cp
+ *
+ */
 public class KNN {
 
 	public static String assignLabel(ProjectedTrainingMatrix[] trainingSet, Matrix testFace, int K, Metric metric) {

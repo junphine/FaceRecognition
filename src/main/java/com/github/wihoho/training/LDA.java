@@ -23,8 +23,7 @@ public class LDA extends FeatureExtraction {
         Matrix meanTotal = new Matrix(n - c, 1);
 
         HashMap<String, ArrayList<Matrix>> map = new HashMap<String, ArrayList<Matrix>>();
-        ArrayList<ProjectedTrainingMatrix> pcaTrain = pca
-                .getProjectedTrainingSet();
+        ArrayList<ProjectedTrainingMatrix> pcaTrain = pca.getProjectedTrainingSet();
         for (int i = 0; i < pcaTrain.size(); i++) {
             String key = pcaTrain.get(i).label;
             meanTotal.plusEquals(pcaTrain.get(i).matrix);

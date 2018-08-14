@@ -1,6 +1,5 @@
 package com.github.wihoho.jama;
 
-import com.github.wihoho.jama.util.Maths;
 
 /** Singular Value Decomposition.
    <P>
@@ -83,7 +82,7 @@ public class SingularValueDecomposition implements java.io.Serializable {
             // Compute 2-norm of k-th column without under/overflow.
             s[k] = 0;
             for (int i = k; i < m; i++) {
-               s[k] = Maths.hypot(s[k], A[i][k]);
+               s[k] = Math.hypot(s[k], A[i][k]);
             }
             if (s[k] != 0.0) {
                if (A[k][k] < 0.0) {
@@ -132,7 +131,7 @@ public class SingularValueDecomposition implements java.io.Serializable {
             // Compute 2-norm without under/overflow.
             e[k] = 0;
             for (int i = k+1; i < n; i++) {
-               e[k] = Maths.hypot(e[k],e[i]);
+               e[k] = Math.hypot(e[k],e[i]);
             }
             if (e[k] != 0.0) {
                if (e[k+1] < 0.0) {
@@ -316,7 +315,7 @@ public class SingularValueDecomposition implements java.io.Serializable {
                double f = e[p-2];
                e[p-2] = 0.0;
                for (int j = p-2; j >= k; j--) {
-                  double t = Maths.hypot(s[j],f);
+                  double t = Math.hypot(s[j],f);
                   double cs = s[j]/t;
                   double sn = f/t;
                   s[j] = t;
@@ -341,7 +340,7 @@ public class SingularValueDecomposition implements java.io.Serializable {
                double f = e[k-1];
                e[k-1] = 0.0;
                for (int j = k; j < p; j++) {
-                  double t = Maths.hypot(s[j],f);
+                  double t = Math.hypot(s[j],f);
                   double cs = s[j]/t;
                   double sn = f/t;
                   s[j] = t;
@@ -388,7 +387,7 @@ public class SingularValueDecomposition implements java.io.Serializable {
                // Chase zeros.
    
                for (int j = k; j < p-1; j++) {
-                  double t = Maths.hypot(f,g);
+                  double t = Math.hypot(f,g);
                   double cs = f/t;
                   double sn = g/t;
                   if (j != k) {
@@ -405,7 +404,7 @@ public class SingularValueDecomposition implements java.io.Serializable {
                         V[i][j] = t;
                      }
                   }
-                  t = Maths.hypot(f,g);
+                  t = Math.hypot(f,g);
                   cs = f/t;
                   sn = g/t;
                   s[j] = t;

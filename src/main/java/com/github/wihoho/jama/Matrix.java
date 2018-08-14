@@ -1,10 +1,10 @@
 package com.github.wihoho.jama;
 
-import com.github.wihoho.jama.util.Maths;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.io.StreamTokenizer;
+import java.io.StringWriter;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -521,7 +521,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
       double f = 0;
       for (int i = 0; i < m; i++) {
          for (int j = 0; j < n; j++) {
-            f = Maths.hypot(f, A[i][j]);
+            f = Math.hypot(f, A[i][j]);
          }
       }
       return f;
@@ -941,7 +941,8 @@ public class Matrix implements Cloneable, java.io.Serializable {
    */
 
    public void print (NumberFormat format, int width) {
-      print(new PrintWriter(System.out,true),format,width); }
+      print(new PrintWriter(System.out,true),format,width); 
+   }
 
    // DecimalFormat is a little disappointing coming from Fortran or C's printf.
    // Since it doesn't pad on the left, the elements will come out different
@@ -1057,6 +1058,21 @@ public class Matrix implements Cloneable, java.io.Serializable {
    Private Methods
  * ------------------------ */
 
+   /** sqrt(a^2 + b^2) without under/overflow. **/
+
+   static double _hypot(double a, double b) {
+      double r;
+      if (Math.abs(a) > Math.abs(b)) {
+         r = b/a;
+         r = Math.abs(a)*Math.sqrt(1+r*r);
+      } else if (b != 0) {
+         r = a/b;
+         r = Math.abs(b)*Math.sqrt(1+r*r);
+      } else {
+         r = 0.0;
+      }
+      return r;
+   }
    /** Check if size(A) == size(B) **/
 
    private void checkMatrixDimensions (Matrix B) {
@@ -1065,5 +1081,12 @@ public class Matrix implements Cloneable, java.io.Serializable {
       }
    }
 
-  private static final long serialVersionUID = 1;
+   public String toString(){
+	   StringWriter w = new StringWriter();
+	   PrintWriter writer = new PrintWriter(w);
+	   print(writer,80,2);
+	   return w.toString();	   
+   }
+   
+   private static final long serialVersionUID = 1;
 }

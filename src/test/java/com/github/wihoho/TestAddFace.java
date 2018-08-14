@@ -87,6 +87,7 @@ public class TestAddFace {
     }
 
     //Convert a m by n matrix into a m*n by 1 matrix
+    //将m*n矩阵转换为一维列向量
     static Matrix vectorize(Matrix input) {
         int m = input.getRowDimension();
         int n = input.getColumnDimension();

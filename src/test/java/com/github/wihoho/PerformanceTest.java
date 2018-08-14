@@ -3,14 +3,14 @@ package com.github.wihoho;
 
 import com.github.wihoho.jama.Matrix;
 import com.github.wihoho.training.*;
-import com.google.common.io.ByteStreams;
-import com.google.common.io.Resources;
+
 import org.junit.Test;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.*;
 
 import static junit.framework.Assert.assertTrue;
@@ -95,11 +95,11 @@ public class PerformanceTest {
             ArrayList<Integer> cases = trainMap.get(label);
             for (int i = 0; i < cases.size(); i++) {
                 String filePath = "/faces/" + label + "/" + cases.get(i) + ".pgm";
-                InputStream inputStream = Resources.class.getResourceAsStream(filePath);
+                InputStream inputStream = this.getClass().getResourceAsStream(filePath);
                 File tempFile = File.createTempFile("pic", ",pgm");
                 tempFile.deleteOnExit();
 
-                ByteStreams.copy(inputStream, new FileOutputStream(tempFile));
+                copy(inputStream, new FileOutputStream(tempFile),-1);
 
                 Matrix temp;
                 try {
@@ -125,11 +125,11 @@ public class PerformanceTest {
             for (int i = 0; i < cases.size(); i++) {
                 String filePath = "/faces/" + label + "/" + cases.get(i) + ".pgm";
 
-                InputStream inputStream = Resources.class.getResourceAsStream(filePath);
+                InputStream inputStream = this.getClass().getResourceAsStream(filePath);
                 File tempFile = File.createTempFile("pic", ",pgm");
                 tempFile.deleteOnExit();
 
-                ByteStreams.copy(inputStream, new FileOutputStream(tempFile));
+                copy(inputStream, new FileOutputStream(tempFile),-1);
 
                 Matrix temp;
                 try {
@@ -237,5 +237,29 @@ public class PerformanceTest {
             }
         }
         return result;
+    }
+    
+    /**
+     * 从输入流读取内容, 写入到输出流中. 使用指定大小的缓冲区.
+     * 
+     * @param in 输入流
+     * @param out 输出流
+     * @param bufferSize 缓冲区大小(字节数)
+     * 
+     * @throws IOException 输入输出异常
+     */
+    public static void copy(InputStream in, OutputStream out, int bufferSize) throws IOException {
+        if (bufferSize == -1) {
+            bufferSize = 8192;
+        }
+
+        byte[] buffer = new byte[bufferSize];
+        int amount;
+
+        while ((amount = in.read(buffer)) >= 0) {
+            out.write(buffer, 0, amount);
+        }
+
+        out.flush();
     }
 }

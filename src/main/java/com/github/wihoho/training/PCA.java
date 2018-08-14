@@ -9,6 +9,13 @@ import java.util.Arrays;
 
 public class PCA extends FeatureExtraction {
 
+	/**
+	 * 
+	 * @param trainingSet Matrix是一维的列向量
+	 * @param labels
+	 * @param numOfComponents
+	 * @throws Exception
+	 */	
 	public PCA(ArrayList<Matrix> trainingSet, ArrayList<String> labels,
 			   int numOfComponents) throws Exception {
 		
@@ -77,7 +84,7 @@ public class PCA extends FeatureExtraction {
 	}
 
 	// get the first K indexes with the highest eigenValues
-	private class mix implements Comparable {
+	private static class mix implements Comparable {
 		int index;
 		double value;
 

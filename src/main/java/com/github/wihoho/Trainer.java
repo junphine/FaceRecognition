@@ -3,12 +3,16 @@ package com.github.wihoho;
 import com.github.wihoho.constant.FeatureType;
 import com.github.wihoho.jama.Matrix;
 import com.github.wihoho.training.*;
-import com.google.common.base.Preconditions;
-import lombok.experimental.Builder;
+import lombok.Builder;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * 数据集的元素Matrix是一维的列向量
+ * @author Hunteron-cp
+ *
+ */
 @Builder
 public class Trainer {
     Metric metric;
@@ -37,11 +41,11 @@ public class Trainer {
     }
 
     public void train() throws Exception {
-        Preconditions.checkNotNull(metric);
-        Preconditions.checkNotNull(featureType);
-        Preconditions.checkNotNull(numberOfComponents);
-        Preconditions.checkNotNull(trainingSet);
-        Preconditions.checkNotNull(trainingLabels);
+        checkNotNull(metric);
+        checkNotNull(featureType);
+        checkNotNull(numberOfComponents);
+        checkNotNull(trainingSet);
+        checkNotNull(trainingLabels);
 
         switch (featureType) {
             case PCA:
@@ -61,6 +65,35 @@ public class Trainer {
     public String recognize(Matrix matrix) {
         Matrix testCase = featureExtraction.getW().transpose().times(matrix.minus(featureExtraction.getMeanMatrix()));
         String result = KNN.assignLabel(model.toArray(new ProjectedTrainingMatrix[0]), testCase, k, metric);
+        return result;
+    }
+    
+    /**
+     * Ensures that an object reference passed as a parameter to the calling method is not null.
+     *
+     * @param reference an object reference
+     * @return the non-null reference that was validated
+     * @throws NullPointerException if {@code reference} is null
+     */
+    public static <T> T checkNotNull(T reference) {
+      if (reference == null) {
+        throw new NullPointerException();
+      }
+      return reference;
+    }
+    
+    //Convert a m by n matrix into a m*n by 1 matrix
+    //将m*n矩阵转换为一维列向量
+    static Matrix vectorize(Matrix input) {
+        int m = input.getRowDimension();
+        int n = input.getColumnDimension();
+
+        Matrix result = new Matrix(m * n, 1);
+        for (int p = 0; p < n; p++) {
+            for (int q = 0; q < m; q++) {
+                result.set(p * m + q, 0, input.get(q, p));
+            }
+        }
         return result;
     }
 }
