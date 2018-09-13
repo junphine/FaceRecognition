@@ -18,7 +18,15 @@
 	<url>https://github.com/wihoho/FaceRecognition</url>
 
 	<properties>
-	   
+	   	<slf4j.version>1.7.16</slf4j.version>
+		<log4j.version>2.8.1</log4j.version>
+		<deeplearning4j>1.0.0-beta</deeplearning4j>
+		<java.version>1.8</java.version>	
+		<nd4j.version>1.0.0-beta</nd4j.version>
+		<dl4j.version>1.0.0-beta</dl4j.version>
+		<datavec.version>1.0.0-beta</datavec.version>
+		<arbiter.version>1.0.0-beta</arbiter.version>
+		<rl4j.version>1.0.0-beta</rl4j.version>
 	 </properties>
   
 	<licenses>
@@ -60,7 +68,6 @@
 		</dependency>
 
 		<dependency>
-
 			<groupId>com.unbiz</groupId>
 			<artifactId>common-utils</artifactId>
 			<version>0.1.0</version>
@@ -87,14 +94,86 @@
 			<groupId>org.choco-solver</groupId>
 			<artifactId>choco-solver</artifactId>
 			<version>4.0.4</version>
-		</dependency>
-		
+		</dependency>		
 		
 		  <dependency>
 		    <groupId>com.edwardraff</groupId>
 		    <artifactId>JSAT</artifactId>
 		    <version>2.1.0-SNAPSHOT</version>
 		  </dependency>
+		  
+		  
+		  <dependency>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>deeplearning4j-core</artifactId>
+			<version>${deeplearning4j}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.nd4j</groupId>
+			<artifactId>nd4j-native-platform</artifactId>
+			<version>${deeplearning4j}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>deeplearning4j-zoo</artifactId>
+			<version>${deeplearning4j}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.datavec</groupId>
+			<artifactId>datavec-data-image</artifactId>
+			<version>${deeplearning4j}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bytedeco.javacpp-presets</groupId>
+			<artifactId>ffmpeg</artifactId>
+			<version>3.4.1-1.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bytedeco.javacpp-presets</groupId>
+			<artifactId>ffmpeg-platform</artifactId>
+			<version>3.4.1-1.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-ext -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-ext</artifactId>
+			
+		</dependency>
+		<!-- Binding for Log4J -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+		
+		</dependency>
+		<!-- Log4j API and Core implementation required for binding -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+		
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-web</artifactId>
+		
+		</dependency>		
+	
 
 	</dependencies>
 
@@ -184,6 +263,11 @@
 		<repository>
 			<id>spring-milestones</id>
 			<url>http://repo.spring.io/milestone</url>
+		</repository>
+		<repository>
+			<id>ros</id>
+			<name>ros repository</name>
+			<url>https://github.com/rosjava/rosjava_mvn_repo/raw/master</url>
 		</repository>
 	</repositories>
 	<pluginRepositories>
