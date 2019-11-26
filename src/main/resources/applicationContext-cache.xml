@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.1.xsd">
+
+	<!-- 业务缓存（spring注解） -->
+	<cache:annotation-driven cache-manager="cacheManager" key-generator="keyGenerator" />
+
+	<bean id="keyGenerator" class="com.example.core.cache.CacheKeyGenerator"></bean>
+
+	<bean id="cacheManager" class="org.apache.ignite.cache.spring.SpringCacheManager">
+		 <property name="gridName" value="imageSearchWeb" />			
+		
+		 <property name="dynamicCacheConfiguration">
+	        <bean class="org.apache.ignite.configuration.CacheConfiguration">
+	            <property name="cacheMode" value="REPLICATED"/>
+	        </bean>
+	    </property>
+	</bean>
+
+	
+
+</beans>

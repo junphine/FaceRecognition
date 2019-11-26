@@ -24,6 +24,7 @@ import com.unbiz.common.Assert;
 
 @Controller
 @EnableAutoConfiguration
+@RequestMapping("/linearOp")
 public class LinearOptimController {
 	private static final MaxIter DEFAULT_MAX_ITER = new MaxIter(100);
 	
@@ -33,7 +34,9 @@ public class LinearOptimController {
         return "Hello World!";
     }
 	
-    public void testMath842Cycle() {
+	@RequestMapping("/testMath")
+	@ResponseBody
+    public String testMath842Cycle() {
         // from http://www.math.toronto.edu/mpugh/Teaching/APM236_04/bland
         //      maximize 10 x1 - 57 x2 - 9 x3 - 24 x4
         //      subject to
@@ -58,10 +61,13 @@ public class LinearOptimController {
                                                   PivotSelectionRule.BLAND);
         Precision.equals(1.0d,solution.getValue(),epsilon);
         Assert.assertTrue(validSolution(solution, constraints, epsilon));
+        
+        return "Result: "+solution.getValue();
     }
     
-    
-    public void testLargeModel() {
+	@RequestMapping("/testModel")
+	@ResponseBody
+    public String testLargeModel() {
         double[] objective = new double[] {
                                            1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                                            1, 1, 12, 1, 1, 1, 1, 1, 1, 1,
@@ -186,6 +192,8 @@ public class LinearOptimController {
         PointValuePair solution = solver.optimize(DEFAULT_MAX_ITER, f, new LinearConstraintSet(constraints),
                                                   GoalType.MINIMIZE, new NonNegativeConstraint(true));
         Precision.equals(7518.0, solution.getValue(), .0000001);
+        
+        return "Result: "+solution.getValue();
     }
 
     /**
