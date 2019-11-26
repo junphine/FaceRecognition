@@ -18,6 +18,7 @@
 	<url>https://github.com/junphine/FaceRecognition</url>
 
 	<properties>
+<<<<<<< HEAD
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>	
 		<spring.io.platform.version>Athens-RELEASE</spring.io.platform.version>
@@ -47,6 +48,17 @@
 		<ffmpeg.version>3.4.1-1.4</ffmpeg.version>
         <javacv.version>1.5.1</javacv.version>
         
+=======
+	   	<slf4j.version>1.7.16</slf4j.version>
+		<log4j.version>2.8.1</log4j.version>
+		<deeplearning4j>1.0.0-beta</deeplearning4j>
+		<java.version>1.8</java.version>	
+		<nd4j.version>1.0.0-beta</nd4j.version>
+		<dl4j.version>1.0.0-beta</dl4j.version>
+		<datavec.version>1.0.0-beta</datavec.version>
+		<arbiter.version>1.0.0-beta</arbiter.version>
+		<rl4j.version>1.0.0-beta</rl4j.version>
+>>>>>>> a061682bd19a0d785bd5e03384a430ab1674ce02
 	 </properties>
   
 	<licenses>
@@ -132,6 +144,20 @@
 			<version>${deeplearning4j}</version>
 		</dependency>
 
+<<<<<<< HEAD
+=======
+		<dependency>
+			<groupId>org.bytedeco.javacpp-presets</groupId>
+			<artifactId>ffmpeg</artifactId>
+			<version>3.4.1-1.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bytedeco.javacpp-presets</groupId>
+			<artifactId>ffmpeg-platform</artifactId>
+			<version>3.4.1-1.4</version>
+		</dependency>
+>>>>>>> a061682bd19a0d785bd5e03384a430ab1674ce02
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -166,6 +192,7 @@
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-web</artifactId>
 		
+<<<<<<< HEAD
 		</dependency>	
 		
 		
@@ -379,6 +406,10 @@
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 		</dependency>
+=======
+		</dependency>		
+	
+>>>>>>> a061682bd19a0d785bd5e03384a430ab1674ce02
 
 	</dependencies>
 
