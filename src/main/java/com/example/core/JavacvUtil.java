@@ -1,19 +1,7 @@
 package com.example.core;
 
-import static org.bytedeco.opencv.global.opencv_imgcodecs.imread;
-import static org.bytedeco.opencv.global.opencv_imgproc.resize;
-import org.bytedeco.opencv.opencv_core.*;
-import org.bytedeco.opencv.opencv_features2d.Feature2D;
-import org.bytedeco.opencv.opencv_imgproc.*;
-import org.bytedeco.opencv.opencv_calib3d.*;
-import org.bytedeco.opencv.opencv_objdetect.*;
-
-import static org.bytedeco.opencv.global.opencv_core.*;
-import static org.bytedeco.opencv.global.opencv_imgproc.*;
-import static org.bytedeco.opencv.global.opencv_calib3d.*;
-import static org.bytedeco.opencv.global.opencv_objdetect.*;
-
-
+import static org.bytedeco.javacpp.opencv_imgcodecs.imread;
+import static org.bytedeco.javacpp.opencv_imgproc.CV_BGR2GRAY;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,6 +10,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import org.bytedeco.javacpp.opencv_core.IplImage;
+import org.bytedeco.javacpp.opencv_core.KeyPointVector;
+import org.bytedeco.javacpp.opencv_core.Mat;
+import org.bytedeco.javacpp.opencv_core.Rect;
+import org.bytedeco.javacpp.opencv_features2d.Feature2D;
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.Java2DFrameConverter;

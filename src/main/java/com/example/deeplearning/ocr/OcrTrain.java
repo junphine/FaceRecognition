@@ -7,17 +7,20 @@ import com.example.commons.constants.OcrConstants;
 public class OcrTrain {
 	public static void main(String[] args) {
 		Ocr ocr = new Ocr.Builder()
-				.setEpochs(100)
+				.setEpochs(20)
 				.setBatchSize(15)
 				.setDataSetType("train")
 				.setTimeSeriesLength(16)
-				.setMaxLabelLength(16)
+				.setMaxLabelLength(8)
 				.setTextChars(OcrConstants.textChars)
 				.setDirPath("data/captcha-x/")
-				.setModelFileName("ocrModel.json")
+				.setModelFileName(OcrConstants.modelFilePath)
 				.toOcr();
 		try {
-			ocr.train();
+			//ocr.train();
+			
+			ocr.predict();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

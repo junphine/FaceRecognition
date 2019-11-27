@@ -14,7 +14,6 @@ import org.nd4j.linalg.activations.impl.ActivationSoftmax;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.indexing.BooleanIndexing;
-import org.nd4j.linalg.indexing.NDArrayIndex;
 import org.nd4j.linalg.indexing.conditions.Conditions;
 import org.nd4j.linalg.lossfunctions.ILossFunction;
 import org.nd4j.linalg.lossfunctions.LossUtil;
@@ -28,10 +27,9 @@ import org.tensorflow.framework.AttrValue;
 import org.tensorflow.framework.GraphDef;
 import org.tensorflow.framework.NodeDef;
 
-import onnx.Onnx.GraphProto;
-import onnx.Onnx.NodeProto;
-import onnx.Onnx;
-
+import onnx.OnnxProto3.AttributeProto;
+import onnx.OnnxProto3.GraphProto;
+import onnx.OnnxProto3.NodeProto;
 
 /**
  * CTC损失函数
@@ -136,7 +134,7 @@ public class LossCTC extends DifferentialFunction implements ILossFunction{
 	}
 
 	@Override
-	public void initFromOnnx(NodeProto node, SameDiff initWith, Map<String, Onnx.AttributeProto> attributesForNode,
+	public void initFromOnnx(NodeProto node, SameDiff initWith, Map<String, AttributeProto> attributesForNode,
 			GraphProto graph) {
 		
 	}
@@ -170,7 +168,7 @@ public class LossCTC extends DifferentialFunction implements ILossFunction{
 			int llength = 0;
 			// label不对齐处理
 			for (int j = 0; j < (int)lablesShape[2]; j ++) {
-				INDArray label = reshapedLabels.get(NDArrayIndex.point(i),NDArrayIndex.point(j), NDArrayIndex.all());//- reshapedLabels.getRow(i).getColumn(j);
+				INDArray label =  reshapedLabels.getRow(i).getColumn(j);
 				if (Nd4j.sum(label, 0).getInt(0) > 0) {
 					llength ++;
 				}
@@ -179,7 +177,7 @@ public class LossCTC extends DifferentialFunction implements ILossFunction{
 			int[] l = new int[llength*2+1];
 			l[0] = 0;
 			for (int j = 0; j < llength; j ++) {
-				INDArray label =  reshapedLabels.get(NDArrayIndex.point(i),NDArrayIndex.point(j), NDArrayIndex.all());//-reshapedLabels.getRow(i).getColumn(j);
+				INDArray label =  reshapedLabels.getRow(i).getColumn(j);
 				l[j*2+1]=((Nd4j.argMax(label, 0).getInt(0)));
 				l[j*2+2]=0;
 	        }
@@ -189,16 +187,11 @@ public class LossCTC extends DifferentialFunction implements ILossFunction{
 			computeValidNodes(l,node0,validNodes);
 			computeValidNodes(l,node1,validNodes);
 			Map<Integer,List<Node>> timeSeriesMap = validNodes.values().stream().collect(Collectors.groupingBy(Node::getKey,LinkedHashMap::new, Collectors.toList()));
-			
-			//-INDArray row = reshapedPreOutput.getRow(i);
-			INDArray row = reshapedPreOutput.get(NDArrayIndex.point(i), NDArrayIndex.all());
-			if(timeSeriesMap.size()>0) {
-				for (Node node:timeSeriesMap.get(timeSeriesLength -1)) {
-					computeNodeForwardProbability(l, node, row, validNodes);
-				} 
-			}
-			computeNodeBackProbability(l,node0,row,validNodes);
-			computeNodeBackProbability(l,node1,row,validNodes);
+			for (Node node:timeSeriesMap.get(timeSeriesLength -1)) {
+				computeNodeForwardProbability(l, node, reshapedPreOutput.getRow(i), validNodes);
+			} 
+			computeNodeBackProbability(l,node0,reshapedPreOutput.getRow(i),validNodes);
+			computeNodeBackProbability(l,node1,reshapedPreOutput.getRow(i),validNodes);
 			//for (Node node:validNodes.values().stream().sorted().collect(Collectors.toList())) {
 			//	System.out.println(node);
 			//}
@@ -211,7 +204,7 @@ public class LossCTC extends DifferentialFunction implements ILossFunction{
 			}
 			for (int t=0;t<timeSeriesLength;t++) {
 				INDArray temp = Nd4j.zeros(1, preOutput.shape()[1]);
-				INDArray kArray = reshapedPreOutput.get(NDArrayIndex.point(i),NDArrayIndex.point(t), NDArrayIndex.all());//-getRow(i).getColumn(t);
+				INDArray kArray = reshapedPreOutput.getRow(i).getColumn(t);
 				List<Node> nodes = timeSeriesMap.get(t);
 				for (int k=0;k<kArray.shape()[0];k++) {
 					List<Node> lkNodes = getNodes(nodes,k,l);
@@ -248,7 +241,7 @@ public class LossCTC extends DifferentialFunction implements ILossFunction{
 		for (int i = 0; i < (int)lablesShape[0]; i ++) {
 			int llength = 0;
 			for (int j = 0; j < (int)lablesShape[2]; j ++) {
-				INDArray label =  reshapedLabels.get(NDArrayIndex.point(i),NDArrayIndex.point(j), NDArrayIndex.all());;
+				INDArray label =  reshapedLabels.getRow(i).getColumn(j);
 				if (Nd4j.sum(label, 0).getInt(0) > 0) {
 					llength ++;
 				}
@@ -257,7 +250,7 @@ public class LossCTC extends DifferentialFunction implements ILossFunction{
 			int[] l = new int[llength*2+1];
 			l[0] = 0;
 			for (int j = 0; j < llength; j ++) {
-				INDArray label =  reshapedLabels.get(NDArrayIndex.point(i),NDArrayIndex.point(j), NDArrayIndex.all());
+				INDArray label =  reshapedLabels.getRow(i).getColumn(j);
 				l[j*2+1]=((Nd4j.argMax(label, 0).getInt(0)));
 				l[j*2+2]=0;
 	        }
@@ -267,11 +260,8 @@ public class LossCTC extends DifferentialFunction implements ILossFunction{
 			computeValidNodes(l,node0,validNodes);
 			computeValidNodes(l,node1,validNodes);
 			Map<Integer,List<Node>> timeSeriesMap = validNodes.values().stream().collect(Collectors.groupingBy(Node::getKey,LinkedHashMap::new, Collectors.toList()));
-			
-			//INDArray row = reshapedPreOutput.getRow(i),
-			INDArray row = reshapedPreOutput.get(NDArrayIndex.point(i), NDArrayIndex.all());
 			for (Node node:timeSeriesMap.get(timeSeriesLength -1)) {
-				computeNodeForwardProbability(l, node, row, validNodes);
+				computeNodeForwardProbability(l, node, reshapedPreOutput.getRow(i), validNodes);
 			} 
 			float plx = 0f;
 			if (validNodes.get(new Node(timeSeriesLength -1,l.length-1)) != null) {

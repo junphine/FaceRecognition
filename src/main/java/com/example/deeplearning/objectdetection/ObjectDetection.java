@@ -1,24 +1,20 @@
 package com.example.deeplearning.objectdetection;
-import static org.bytedeco.opencv.global.opencv_imgcodecs.imread;
-import static org.bytedeco.opencv.global.opencv_imgproc.resize;
-import org.bytedeco.opencv.opencv_core.*;
-import org.bytedeco.opencv.opencv_imgproc.*;
-import org.bytedeco.opencv.opencv_calib3d.*;
-import org.bytedeco.opencv.opencv_objdetect.*;
+import static org.bytedeco.javacpp.opencv_core.CV_8U;
+import static org.bytedeco.javacpp.opencv_imgcodecs.imread;
+import static org.bytedeco.javacpp.opencv_imgproc.rectangle;
+import static org.bytedeco.javacpp.opencv_imgproc.resize;
 
-import static org.bytedeco.opencv.global.opencv_core.*;
-import static org.bytedeco.opencv.global.opencv_imgproc.*;
-import static org.bytedeco.opencv.global.opencv_calib3d.*;
-import static org.bytedeco.opencv.global.opencv_objdetect.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-
+import org.bytedeco.javacpp.opencv_core.Mat;
+import org.bytedeco.javacpp.opencv_core.Point;
+import org.bytedeco.javacpp.opencv_core.Scalar;
+import org.bytedeco.javacpp.opencv_core.Size;
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.OpenCVFrameConverter;
-import org.bytedeco.opencv.opencv_core.Mat;
 import org.datavec.api.records.metadata.RecordMetaDataImageURI;
 import org.datavec.api.split.FileSplit;
 import org.datavec.image.loader.NativeImageLoader;
@@ -265,7 +261,7 @@ public class ObjectDetection extends NativeImageLoader {
                         "leaky_re_lu_8")
                 .addLayer("outputs",
                         new Yolo2OutputLayer.Builder()
-                                .lambdaNoObj(lambdaNoObj)
+                                .lambbaNoObj(lambdaNoObj)
                                 .lambdaCoord(lambdaCoord)
                                 .boundingBoxPriors(priors)
                                 .build(),

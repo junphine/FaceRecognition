@@ -7,5 +7,5 @@ public interface ObjectDetectionConstants {
 	int gridWidth = 13;
 	int gridHeight = 13;
 	double detectionThreshold = 0.5;
-	String modelFilePath = "";
+	String modelFilePath = "model/object/objectDetectionModel.json";
 }

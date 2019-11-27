@@ -15,9 +15,7 @@ import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.deeplearning4j.nn.workspace.LayerWorkspaceMgr;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
-//import org.deeplearning4j.ui.api.UIServer;
-//import org.deeplearning4j.ui.stats.StatsListener;
-//import org.deeplearning4j.ui.storage.InMemoryStatsStorage;
+
 import org.deeplearning4j.util.ModelSerializer;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.ndarray.INDArray;
@@ -96,16 +94,12 @@ public class ImageEncoder{
 								.reconstructionDistribution(new BernoulliReconstructionDistribution(
 										Activation.SIGMOID.getActivationFunction()))
 								.nIn(100 * 100).nOut(100).build())
-				//.pretrain(true).backprop(false)
-				.build();
+				.pretrain(true).backprop(false).build();
 
 		MultiLayerNetwork net = new MultiLayerNetwork(conf);
 		net.init();
 		System.out.println(net.summary());
-		//UIServer uiServer = UIServer.getInstance();
-		//StatsStorage statsStorage = new InMemoryStatsStorage();
-		//uiServer.attach(statsStorage);
-		// new StatsListener(statsStorage)
+		
 		net.setListeners(new ScoreIterationListener(10));
 		DataSetIterator trainIter = new ImageDataSetIterator(minibatchSize, true, new File(dirPath));
 		for (int i = 1; i <= nEpochs; i++) {

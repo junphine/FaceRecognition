@@ -5,5 +5,5 @@ public interface OcrConstants {
 	int width = 160;
 	int channels = 1;
 	String textChars = "_234578acdefgmnpwxy";
-	String modelFilePath = "model/captcha";
+	String modelFilePath = "model/captcha/ocrModel.json";
 }

@@ -1,21 +1,13 @@
 package com.example.core;
 
+import static org.bytedeco.javacpp.opencv_core.CV_32F;
+import static org.bytedeco.javacpp.opencv_core.abs;
+import static org.bytedeco.javacpp.opencv_core.dct;
+import static org.bytedeco.javacpp.opencv_imgcodecs.imread;
+import static org.bytedeco.javacpp.opencv_imgproc.resize;
 
-import static org.bytedeco.opencv.global.opencv_imgcodecs.imread;
-import static org.bytedeco.opencv.global.opencv_imgproc.resize;
-import org.bytedeco.opencv.opencv_core.*;
-import org.bytedeco.opencv.opencv_imgproc.*;
-import org.bytedeco.opencv.opencv_calib3d.*;
-import org.bytedeco.opencv.opencv_objdetect.*;
-
-import static org.bytedeco.opencv.global.opencv_core.*;
-import static org.bytedeco.opencv.global.opencv_imgproc.*;
-import static org.bytedeco.opencv.global.opencv_calib3d.*;
-import static org.bytedeco.opencv.global.opencv_objdetect.*;
-
-
-import org.bytedeco.opencv.opencv_core.Mat;
-import org.bytedeco.opencv.opencv_core.Size;
+import org.bytedeco.javacpp.opencv_core.Mat;
+import org.bytedeco.javacpp.opencv_core.Size;
 import org.bytedeco.javacpp.indexer.FloatRawIndexer;
 
 public class PHash {

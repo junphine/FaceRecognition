@@ -9,7 +9,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import org.bytedeco.opencv.opencv_core.Point;
+import org.bytedeco.javacpp.opencv_core.Point;
 import org.datavec.image.loader.NativeImageLoader;
 import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.deeplearning4j.nn.layers.objdetect.DetectedObject;

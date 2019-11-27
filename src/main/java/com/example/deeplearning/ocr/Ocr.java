@@ -24,9 +24,7 @@ import org.deeplearning4j.nn.conf.layers.SubsamplingLayer;
 import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.deeplearning4j.nn.weights.WeightInit;
 import org.deeplearning4j.optimize.listeners.ScoreIterationListener;
-//import org.deeplearning4j.ui.api.UIServer;
-//import org.deeplearning4j.ui.stats.StatsListener;
-//import org.deeplearning4j.ui.storage.InMemoryStatsStorage;
+
 import org.deeplearning4j.util.ModelSerializer;
 import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.api.concurrency.AffinityManager;
@@ -201,10 +199,7 @@ public class Ocr {
 	 * @throws IOException
 	 */
 	private void train(ComputationGraph model,MultiDataSetIterator trainMulIterator) throws IOException{
-		//UIServer uiServer = UIServer.getInstance();
-        //StatsStorage statsStorage = new InMemoryStatsStorage();
-        //uiServer.attach(statsStorage);
-		// new StatsListener( statsStorage)
+		
         model.setListeners(new ScoreIterationListener(10));
 		for ( int i = 0; i < epochs; i ++ ) {
             System.out.println("epoch:" + i);

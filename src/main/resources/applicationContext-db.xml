@@ -60,20 +60,7 @@
 		<property name="defaultTargetDataSource" ref="webdb-slave1"></property>
 	</bean>
 
-	<!-- Mybatis配置 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"></property>
-		<property name="mapperLocations">
-			<array>
-				<value>classpath:com/example/dao/*.xml</value>
-			</array>
-		</property>
-	</bean>
-
-	<bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
-		<property name="basePackage" value="com.example.dao"></property>
-	</bean>
+	
 
 	<context:annotation-config />
 	

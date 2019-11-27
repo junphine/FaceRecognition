@@ -76,7 +76,10 @@ public class OcrAPI {
 	
 	public static void main(String[] args) throws IOException {
 		OcrAPI ocrAPI = new OcrAPI();
-		String text = ocrAPI.predict(new File("data/captcha-x/train/2c42ad.jpg"));
+		
+		String text = ocrAPI.predict(new File("data/captcha-x/train/2ycg.jpg"));
+		text = ocrAPI.predict(new File("data/captcha-x/train/4xnp.jpg"));
+		text = ocrAPI.predict(new File("data/captcha-x/train/2c42ad.jpg"));
 		System.out.println(text);
 	}
 }
