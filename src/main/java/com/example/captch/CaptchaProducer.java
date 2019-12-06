@@ -21,8 +21,8 @@ import javax.imageio.ImageIO;
  */
 public class CaptchaProducer {
 
-	private final static int captchaLength = 6;
-	
+	private final static int captchaLength = 4;
+				
 	private static final String base = "234578acdefgmnpwxy";
 	
 	private static Random rand = new Random();
@@ -36,7 +36,7 @@ public class CaptchaProducer {
 		StringBuilder sb = new StringBuilder();
 		String temp = " ";
 		for (int i = 0; i < captchaLength; i++) {
-			String ch = base.charAt(new Random().nextInt(base.length())) + "";
+			String ch = base.charAt(new Random().nextInt(base.length())) + " ";
 			if (ch.equals(temp)) {
 				i--;
 				continue;
@@ -243,7 +243,7 @@ public class CaptchaProducer {
 	 */
 	public static void main(String[] args) throws IOException {
 		FileOutputStream out = null;
-		for (int i = 0; i < 150; i++) {
+		for (int i = 0; i < 150*2; i++) {
 			String captchaText = CaptchaProducer.createText();
 			CaptchaConfig config = new CaptchaConfig();
 			Font font = new Font("微软雅黑", Font.BOLD, 38);
@@ -253,6 +253,7 @@ public class CaptchaProducer {
 			config.setFontColor(fontColor);
 			config.setNoise(true);
 			BufferedImage bi = CaptchaProducer.createImage(captchaText, 160, 60, 5, font.getSize()+8, config);
+			
 			out = new FileOutputStream(new File("data/captcha/train/" + captchaText.replaceAll(" ", "") + ".jpg"));
 			ImageIO.write(bi, "jpg", out);
 			out.close();
