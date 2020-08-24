@@ -7,7 +7,7 @@ public class ProductExt extends Product implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String id;
+	
 	private String predictText;
 	private String phash;
 	private String createTime;
@@ -24,12 +24,7 @@ public class ProductExt extends Product implements Serializable{
 	public void setPhash(String phash) {
 		this.phash = phash;
 	}
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+	
 	public String getCreateTime() {
 		return createTime;
 	}
@@ -44,7 +39,7 @@ public class ProductExt extends Product implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "ProductExt [id=" + id + ", predictText=" + predictText + ", phash=" + phash + ", createTime="
+		return "ProductExt [id=" + getId() + ", predictText=" + predictText + ", phash=" + phash + ", createTime="
 				+ createTime + ", getTitle()=" + getTitle() + ", getImgUrl()=" + getImgUrl() + ", getPrice()="
 				+ getPrice() + ", getSourceId()=" + getSourceId() + ", getState()=" + getState() + "]";
 	}

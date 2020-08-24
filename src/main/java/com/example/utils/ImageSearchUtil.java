@@ -14,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.example.commons.constants.Constants;
+import com.example.commons.constants.ProductConstants;
 import com.example.entity.ProductExt;
 
 public class ImageSearchUtil {
@@ -28,7 +28,7 @@ public class ImageSearchUtil {
 	 */
 	public static ProductExt getProduct(String fileName) throws IOException {
 		ProductExt product = new ProductExt();
-		File file = new File(Constants.productDataDirPath+"/"+fileName.split("\\.")[0]+".txt");
+		File file = new File(ProductConstants.productDataDirPath+"/"+fileName.split("\\.")[0]+".txt");
 		String productJsonStr = getProductData(file);
 		if (StringUtils.isBlank(productJsonStr)) {
 			product.setId(fileName.split("\\.")[0]);
@@ -55,7 +55,7 @@ public class ImageSearchUtil {
 	}
 	
 	public static void saveProduct(ProductExt prodcut) throws IOException {
-		File file = new File(Constants.productDataDirPath+"/"+prodcut.getId()+".txt");
+		File file = new File(ProductConstants.productDataDirPath+"/"+prodcut.getId()+".txt");
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
 		bw.write(JSON.toJSONString(prodcut));
 		bw.close();

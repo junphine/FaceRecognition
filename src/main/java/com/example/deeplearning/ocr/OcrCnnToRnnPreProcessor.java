@@ -119,8 +119,9 @@ public class OcrCnnToRnnPreProcessor implements InputPreProcessor {
         if (maskArray == null) {
             return new Pair<>(maskArray, currentMaskState);
         } else {
+        	throw new RuntimeException();
             //Need to reshape mask array from [minibatch*timeSeriesLength, 1, 1, 1] to [minibatch,timeSeriesLength]
-            return new Pair<>(TimeSeriesUtils.reshapeCnnMaskToTimeSeriesMask(maskArray, minibatchSize),currentMaskState);
+            //return new Pair<>(TimeSeriesUtils.reshapeCnnMaskToTimeSeriesMask(maskArray, minibatchSize),currentMaskState);
         }
     }
 

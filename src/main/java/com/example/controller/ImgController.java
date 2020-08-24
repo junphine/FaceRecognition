@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.commons.constants.Constants;
+import com.example.commons.constants.ProductConstants;
 
 /**
  * 图片
@@ -32,7 +32,7 @@ public class ImgController extends BaseController {
 			return null;
 		}
 		response.setContentType("image/jpeg");
-		BufferedImage bi = ImageIO.read(new File(Constants.productImageDirPath+"/"+fileName));
+		BufferedImage bi = ImageIO.read(new File(ProductConstants.productImageDirPath+"/"+fileName));
 		if (bi == null) {
 			return null;
 		}

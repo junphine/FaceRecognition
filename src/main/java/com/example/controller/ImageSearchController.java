@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.business.IImageSearchBusiness;
-import com.example.commons.constants.Constants;
+import com.example.commons.constants.ProductConstants;
 import com.example.entity.ProductExt;
 
 /**
@@ -59,11 +59,11 @@ public class ImageSearchController extends BaseController {
 			logger.info(originalFilename + "/" + upfile.getSize());
 			String fileDir = generateFileDir();
 			String fileName = generateFileName(originalFilename);
-			File dir = new File(Constants.searchImageDirPath + "/" + fileDir);
+			File dir = new File(ProductConstants.searchImageDirPath + "/" + fileDir);
 			if (!dir.exists()) {
 				dir.mkdirs();
 			}
-			File dest = new File(Constants.searchImageDirPath + "/" + fileDir+ "/" + fileName);
+			File dest = new File(ProductConstants.searchImageDirPath + "/" + fileDir+ "/" + fileName);
 			logger.info(dest.getAbsolutePath());
 			upfile.transferTo(dest);
 			List<ProductExt> productList = imageSearchBusiness.listProduct(dest);

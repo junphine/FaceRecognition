@@ -97,4 +97,5 @@ public class ImageDataSetIterator implements DataSetIterator {
     public DataSet next() {
         return next(batchSize);
     }
+	
 }

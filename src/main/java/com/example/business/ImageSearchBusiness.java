@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.fastjson.JSON;
-import com.example.commons.constants.Constants;
+import com.example.commons.constants.ProductConstants;
 import com.example.core.LSH;
 import com.example.core.PHash;
 import com.example.core.ignite.IgniteCacheManager;
@@ -69,7 +69,7 @@ public class ImageSearchBusiness implements IImageSearchBusiness{
 		lock.unlock();
 		logger.info("ImageSearchBusiness init unlock");
 		lsh = new LSH(dimention,max,hashCount,bitCount,lshRandomNums);
-		File[] files = new File(Constants.productImageDirPath).listFiles();
+		File[] files = new File(ProductConstants.productImageDirPath).listFiles();
 		for (File file:files) {
 			try {
 				float[] features = ImageEncodeAPI.encode(file);

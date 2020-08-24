@@ -13,6 +13,8 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import com.example.commons.constants.OcrConstants;
+
 /**
  * 验证码生成工具
  * 
@@ -21,10 +23,11 @@ import javax.imageio.ImageIO;
  */
 public class CaptchaProducer {
 
-	private final static int captchaLength = 4;
+	private static int captchaLength = OcrConstants.captchaLength;
 				
-	private static final String base = "234578acdefgmnpwxy";
 	
+	private static List<String> labelList = OcrConstants.labelList;
+	 
 	private static Random rand = new Random();
 
 	/**
@@ -36,7 +39,7 @@ public class CaptchaProducer {
 		StringBuilder sb = new StringBuilder();
 		String temp = " ";
 		for (int i = 0; i < captchaLength; i++) {
-			String ch = base.charAt(new Random().nextInt(base.length())) + " ";
+			String ch = labelList.get(new Random().nextInt(labelList.size())) + "";
 			if (ch.equals(temp)) {
 				i--;
 				continue;
@@ -146,9 +149,9 @@ public class CaptchaProducer {
 		// 干扰
 		if(captchaConfig.getNoise() != null && captchaConfig.getNoise()){
 			// 干扰线
-			//createRandomLine(width, height,50,graphics,100);  
+			createRandomLine(width, height,50,graphics,100);  
 			// 干扰点
-			//createRandomPoint(width, height,1000,graphics,100);
+			createRandomPoint(width, height,1000,graphics,100);
 		}
 		
 		// 设置边框
@@ -242,21 +245,27 @@ public class CaptchaProducer {
 	 * @throws IOException
 	 */
 	public static void main(String[] args) throws IOException {
+		
+		// 200 * 60 * 5 == 50X30
 		FileOutputStream out = null;
-		for (int i = 0; i < 150*2; i++) {
-			String captchaText = CaptchaProducer.createText();
-			CaptchaConfig config = new CaptchaConfig();
-			Font font = new Font("微软雅黑", Font.BOLD, 38);
-			Color fontColor = new Color(255, 136, 30);
-			config.setBackGroundColor(Color.white);
-			config.setFont(font);
-			config.setFontColor(fontColor);
-			config.setNoise(true);
-			BufferedImage bi = CaptchaProducer.createImage(captchaText, 160, 60, 5, font.getSize()+8, config);
-			
-			out = new FileOutputStream(new File("data/captcha/train/" + captchaText.replaceAll(" ", "") + ".jpg"));
-			ImageIO.write(bi, "jpg", out);
-			out.close();
+		String[] dataType = {"train","test","validate"};
+		for(String type: dataType) {
+			for (int i = 0; i < 150*4; i++) {
+				String captchaText = CaptchaProducer.createText();
+				CaptchaConfig config = new CaptchaConfig();
+				Font font = new Font("微软雅黑", Font.BOLD, 40+10);
+				Color fontColor = new Color(255, 255, 255);
+				config.setBackGroundColor(Color.GRAY);
+				config.setFont(font);
+				config.setFontColor(fontColor);
+				config.setNoise(true);
+				BufferedImage bi = CaptchaProducer.createImage(captchaText, OcrConstants.width, OcrConstants.height, 5, font.getSize()+2, config);
+				
+				out = new FileOutputStream(new File("data/captcha/"+ type +"/" + captchaText.replaceAll(" ", "") + ".jpg"));
+				ImageIO.write(bi, "jpg", out);
+				out.close();
+			}
+			//break;
 		}
 	}
 
